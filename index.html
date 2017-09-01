@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
+<html> 
+<head> 
+    <title>Google Maps V3</title> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+    <script type="text/javascript"> 
+        var mapObj; 
+        var originMarker; 
+        var destinationMarker; 
+        var directionsService = new google.maps.DirectionsService(); 
+        var directionsRenderer = new google.maps.DirectionsRenderer(); 
+ 
+        google.maps.event.addDomListener(window, 'load', function() 
+        { 
+            var mapOptions = { 
+                zoom: 12, 
+                center: null, 
+                mapTypeId: google.maps.MapTypeId.ROADMAP, 
+                scaleControl: true 
+            }; 
+            var mapObj = new google.maps.Map(document.getElementById('gmap'), mapOptions); 
+ 
+ 
+            // ルートを表示するマップを設定 
+            var directionsRenderer = new google.maps.DirectionsRenderer(); 
+            directionsRenderer.setMap(mapObj); 
+ 
+ 
+            // 開始地点と終了地点、ルーティングの種類の設定 
+            var request = { 
+                origin: "神奈川工科大学", 
+                destination: "本厚木駅", 
+                travelMode: google.maps.DirectionsTravelMode.WALKING 
+            }; 
+ 
+ 
+            // ルート検索を行う 
+            var directionsService = new google.maps.DirectionsService(); 
+            directionsService.route(request, function(result, status) 
+            { 
+                if (status == google.maps.DirectionsStatus.OK) 
+                { 
+                    directionsRenderer.setDirections(result); 
+                    SetDistance(result); 
+                } 
+            }); 
+        }); 
+ 
+        // 移動距離を設定 
+        function SetDistance(routeData) 
+        { 
+            var distance = GetDistanceKm(routeData.routes[0].legs); 
+            $("#distance").text(distance); 
+        } 
+ 
+        // 距離を取得 
+        function GetDistanceKm(legs) 
+        { 
+            var journey = 0; 
+            for (var i in legs) 
+            { 
+                journey += legs[i].distance.value; 
+            } 
+            return journey / 1000; 
+        } 
+
+        // 移動時間を取得
+
+ 
+    </script> 
+</head> 
+<body> 
+    <div id="gmap" style="width: 99%; height: 570px; border: 1px solid Gray;"> 
+    </div> 
+    <span id="distance" style="font-size:36px;padding-right:10px;"></span>km
+    <span id="" style="font-size:36px;padding-right:10px;"></span> 
+</body> 
+</html> 
