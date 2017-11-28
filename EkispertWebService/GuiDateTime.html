@@ -1,0 +1,28 @@
+<html>
+   <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <title>
+     Webサービスサンプル
+ 	</title>
+     <link class="css" rel="stylesheet" type="text/css" href="expCss/expGuiDateTime.css">
+     <script type="text/javascript" src="expGuiDateTime.js?key=LE_2mqk8hQGHqjNG" charset="UTF-8">
+     </script>
+     <script type="text/javascript">
+       <!--
+ var dateTimeApp;
+ /*
+  * パーツを初期化
+  */
+ function init(){
+   // 日付入力パーツ初期化
+   dateTimeApp = new expGuiDateTime(document.getElementById("dateTime"));
+   dateTimeApp.dispDateTime(dateTimeApp.SEARCHTYPE_DIA);
+ }
+ // -->
+     </script>
+   </head>
+   <body onLoad="Javascript:init();">
+     <div id="dateTime">
+     </div>
+   </body>
+ </html>

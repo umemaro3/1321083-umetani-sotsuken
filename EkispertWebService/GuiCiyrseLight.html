@@ -1,0 +1,53 @@
+<html>
+	  <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <title>
+	    Webサービスサンプル
+	    </title>
+	    <script type="text/javascript" src="../etc/expGuiCourseLight.js?key=LE_2mqk8hQGHqjNG">
+	    </script>
+	    <script type="text/javascript">
+          <!--
+            var resultApp;
+	/*
+	 * パーツを初期化
+	 */
+	function init(){
+	  // 経路探索パーツ初期化
+	  resultApp = new expGuiCourseLight();
+	  // 探索条件
+	  var searchInterface = resultApp.createSearchInterface();
+	  searchInterface.setFrom("高円寺");
+	  searchInterface.setTo("新大阪");
+	  searchInterface.setSearchType(resultApp.SEARCHTYPE_DEPARTURE);
+	  searchInterface.setPlane(false);
+	  searchInterface.setShinkansen(true);
+	  resultApp.search(searchInterface,result);
+	}
+	/*
+	 * 探索実行時のコールバック関する
+	 */
+	function result(isSuccess){
+	  if(!isSuccess){
+	    alert("探索行えません");
+	  }else{
+	    document.getElementById("result").style.display = "block";
+	  }
+	}
+	/*
+	 * 駅すぱあと for webの結果を表示
+	 */
+	function openWeb(){
+	  window.open(resultApp.getResourceURI(), '駅すぱあと for web', 'width=1000, height=600, menubar=no, toolbar=no, scrollbars=yes');
+	}
+	// -->
+	    </script>
+	  </head>
+	  <body onLoad="Javascript:init();">
+	    <div id="result" style="display: none;">
+	      <a href="javascript:openWeb()">
+	        駅すぱあと for webの探索結果を表示する
+	      </a>
+	    </div>
+	  </body>
+	</html>
