@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html { width: 100%; height: 100%; }
+body { width: 100%; height: 100%; margin: 0; }
+#map { width: 1000px; height: 700px; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfQAmY0OhNBefIlWgpXOQb2uuZkXqK7HA&callback=initMap"></script>
+<script>
+//即時関数
+(function(){
+    "use strict";
+    //地図情報
+    var mapData    = { pos: { lat: 35.486492, lng: 139.342669 }, zoom: 12 };
+    //マーカー情報(情報ウインドウ含む)
+    var markerData = [
+        { pos: { lat: 35.453751, lng: 139.389987 }, title: "popup-title1", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test1</h3><p>海老名</p>" },
+        { pos: { lat: 35.443783, lng: 139.378586 }, title: "popup-title2", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test2</h3><p>厚木</p>" },
+        { pos: { lat: 35.439339, lng: 139.364338 }, title: "popup-title3", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test3</h3><p>本厚木</p>" },
+        { pos: { lat: 35.417605, lng: 139.343902 }, title: "popup-title4", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test4</h3><p>愛甲石田</p>" },
+        { pos: { lat: 35.396037, lng: 139.313594 }, title: "popup-title5", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test5</h3><p>伊勢原</p>" },
+        { pos: { lat: 35.380593, lng: 139.277264 }, title: "popup-title6", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test6</h3><p>鶴巻温泉</p>" },
+        { pos: { lat: 35.372872, lng: 139.270904 }, title: "popup-title7", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test7</h3><p>東海大学</p>" },
+        { pos: { lat: 35.370177, lng: 139.225869 }, title: "popup-title8", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test8</h3><p>秦野</p>" },
+        { pos: { lat: 35.374071, lng: 139.184495 }, title: "popup-title9", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test9</h3><p>渋沢</p>" },
+        { pos: { lat: 35.344594, lng: 139.139444 }, title: "popup-title10", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test10</h3><p>新松田</p>" },
+        { pos: { lat: 35.326485, lng: 139.135806 }, title: "popup-title11", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test11</h3><p>開成</p>" },
+        { pos: { lat: 35.310626, lng: 139.142584 }, title: "popup-title12", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test12</h3><p>栢山</p>" },
+        { pos: { lat: 35.296738, lng: 139.145084 }, title: "popup-title13", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test13</h3><p>富水</p>" },
+        { pos: { lat: 35.285045, lng: 139.151945 }, title: "popup-title14", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test14</h3><p>螢田</p>" },
+        { pos: { lat: 35.271764, lng: 139.154504 }, title: "popup-title15", icon: "B_marker.png", infoWindowOpen: false, infoWindowContent: "<h3>test15</h3><p>足柄</p>" },
+        { pos: { lat: 35.256076, lng: 139.155786 }, title: "popup-title16", icon: "", infoWindowOpen: false, infoWindowContent: "<h3>test16</h3><p>小田原</p>" },
+        
+    ];
+    //地図の設定と作成
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: mapData.pos,
+        zoom:   mapData.zoom
+    });
+    for( var i=0; i < markerData.length; i++ )
+    {
+        //即時関数
+        (function(){
+            //マーカーの設定と作成
+            var marker = new google.maps.Marker({
+                position: markerData[i].pos,
+                title:    markerData[i].title,
+                icon:     markerData[i].icon,
+                map: map
+            });
+            if( markerData[i].infoWindowContent )
+            {
+                //情報ウインドウの設定と作成
+                var infoWindow = new google.maps.InfoWindow({
+                    content: markerData[i].infoWindowContent
+                });
+                //情報ウインドウのオープンをマーカーのクリックイベントに登録
+                marker.addListener('click', function(){
+                    infoWindow.open(map, marker);
+                });
+                //情報ウインドウのオープン
+                if( markerData[i].infoWindowOpen )
+                {
+                    infoWindow.open(map, marker);
+                }
+            }
+        }());
+    }
+}());
+</script>
+</body>
+</html>
